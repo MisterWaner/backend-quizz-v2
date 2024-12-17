@@ -34,17 +34,17 @@ type Quiz = {
     questions: Question[];
 }
 
-type Question = {
+interface Question {
     id: number;
     label: string;
     answer: string;
 }
 
-type QCMQuestion<T extends Question> = {
+interface QCMQuestion extends Question {
     id: number;
     label: Question['label'];
-    options: T['answer'][];
-    correctAnswer: T['answer'];
+    options: string[];
+    correctAnswer: number;
 }
 
-export type { User, Subject, Quiz, Role, Avatar, Question, QCMQuestion };
+export { User, Subject, Quiz, Role, Avatar, Question, QCMQuestion };
