@@ -1,15 +1,15 @@
-type Role = {
+export type Role = {
     id: number;
     name: string;
-}
+};
 
-type Avatar = {
+export type Avatar = {
     id: number;
     title: string;
     url: string;
-}
+};
 
-type User = {
+export type User = {
     id: number;
     username: string;
     password: string;
@@ -20,31 +20,28 @@ type User = {
     rank: number;
     role: Role;
     avatar: Avatar;
-}
+};
 
-type Subject = {
+export type Subject = {
     id: number;
     label: string;
-}
+};
 
-type Quiz = {
-    id: number;
+export type Quiz = {
     length: number;
-    subject: Subject;
+    subject?: Subject;
     questions: Question[];
-}
+};
 
-interface Question {
+export type Question = {
     id: number;
     label: string;
-    answer: string;
-}
+    correctAnswer: string | number;
+};
 
-interface QCMQuestion extends Question {
+export type QCMQuestion = {
     id: number;
-    label: Question['label'];
+    label: string;
     options: string[];
     correctAnswer: number;
-}
-
-export { User, Subject, Quiz, Role, Avatar, Question, QCMQuestion };
+};
