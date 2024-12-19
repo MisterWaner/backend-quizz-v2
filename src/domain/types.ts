@@ -10,16 +10,16 @@ export type Avatar = {
 };
 
 export type User = {
-    id: number;
+    id: string;
     username: string;
     password: string;
-    isRegistered: boolean;
+    isRegistered: 0 | 1;
     score: number;
     currentMonthScore: number;
     lastMonthScore: number;
-    rank: number;
-    role: Role;
-    avatar: Avatar;
+    //rank: number;
+    //role: Role;
+    //avatar: Avatar;
 };
 
 export type Subject = {
