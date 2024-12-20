@@ -1,5 +1,5 @@
 import sql from 'better-sqlite3';
-import { hashPassword, getNanoid } from '../../lib/helpers';
+import { hashPassword, comparePassword, getNanoid } from '../../lib/helpers';
 import { User } from '../types';
 //import { getNanoid } from "../../lib/helpers";
 
@@ -43,6 +43,23 @@ export class UserService {
         } catch (error) {
             console.log(error);
             throw new Error('Erreur lors de la création de l\'utilisateur');
+        }
+    }
+
+    async authenticateUser(username: string, password: string): Promise<User | undefined> {
+        try {
+            const user: User = db.prepare('SELECT * FROM users WHERE username = ?').get(username) as User;
+
+            if (!user) throw new Error('Utilisateur inexistant');
+
+            const isPasswordCorrect: boolean = await comparePassword(password, user.password);
+
+            if (!isPasswordCorrect) throw new Error('Identifiants incorrects');
+
+            return user;
+        } catch (error) {
+            console.log(error);
+            throw new Error('Erreur lors de l\'authentification');
         }
     }
 }
