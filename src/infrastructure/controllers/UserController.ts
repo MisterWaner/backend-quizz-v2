@@ -25,10 +25,7 @@ export class UserController {
                 return;
             }
 
-            const user: User = await userService.createUser(
-                username,
-                password
-            );
+            const user: User = await userService.createUser(username, password);
             res.status(201).json({
                 user,
                 message: 'Utilisateur créé avec succès',
@@ -76,6 +73,124 @@ export class UserController {
                 message: "Erreur lors de l'authentification",
             });
             console.log(error);
+        }
+    }
+
+    async getUsers(req: Request, res: Response): Promise<void> {
+        try {
+            const users: User[] | undefined = await userService.getUsers();
+
+            if (!users) {
+                res.status(404).json({
+                    message: 'Aucun utilisateur trouvé',
+                });
+                return;
+            }
+
+            res.status(200).json({
+                users,
+                message: 'Utilisateurs récupérés',
+            });
+        } catch (error) {
+            res.status(500).json({
+                error,
+                message: 'Erreur lors de la récupération des utilisateurs',
+            });
+            console.log(error);
+        }
+    }
+
+    async getUserById(req: Request, res: Response): Promise<void> {
+        try {
+            const { id } = req.params;
+
+            if (!id) {
+                res.status(400).json({
+                    message: "L'id est manquant",
+                });
+                return;
+            }
+
+            const user: User | undefined = await userService.getUserById(id);
+
+            if (!user) {
+                res.status(404).json({
+                    message: 'Utilisateur non trouvé',
+                });
+                return;
+            }
+
+            res.status(200).json({
+                user,
+                message: 'Utilisateur récupéré',
+            });
+        } catch (error) {
+            res.status(500).json({
+                error,
+                message: "Erreur lors de la récupération de l'utilisateur",
+            });
+            console.log(error);
+        }
+    }
+
+    async updateUserUsername(req: Request, res: Response): Promise<void> {
+        try {
+            const { id } = req.params;
+            const { username } = req.body as User;
+
+            if (!id || !username) {
+                res.status(400).json({
+                    message: "L'id ou le nom d'utilisateur est manquant",
+                });
+                return;
+            }
+
+            const user: User | undefined = await userService.updateUserUsername(
+                id,
+                username
+            );
+
+            if (!user) {
+                res.status(404).json({
+                    message: 'Utilisateur non trouvé',
+                });
+                return;
+            }
+
+            res.status(200).json({
+                user,
+                message: 'Utilisateur mis à jour',
+            });
+        } catch (error) {
+            res.status(500).json({
+                error,
+                message: "Erreur lors de la mise à jour du nom d'utilisateur",
+            });
+            console.log(error);
+        }
+    }
+
+    async deleteUser(req: Request, res: Response): Promise<void> {
+        try {
+            const { id } = req.params;
+
+            if (!id) {
+                res.status(400).json({
+                    message: "L'id est manquant",
+                });
+                return;
+            }
+
+            await userService.deleteUser(id);
+
+            res.status(200).json({
+                message: 'Utilisateur supprimé',
+            });
+        } catch (error) {
+            res.status(500).json({
+                error,
+                message: "Erreur lors de la suppression de l'utilisateur",
+            });
         }
     }
 }
