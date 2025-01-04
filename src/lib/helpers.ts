@@ -1,5 +1,7 @@
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
+import { User } from '../domain/types';
 
 config();
 
@@ -7,7 +9,7 @@ config();
 export const getNanoid = async () => {
     const { nanoid } = await import('nanoid');
     return nanoid();
-}
+};
 
 // Mixes the different options of a multiple choice question
 export function shuffleArray<T>(array: T[]): T[] {
@@ -16,13 +18,40 @@ export function shuffleArray<T>(array: T[]): T[] {
 
 // Hash password with bcrypt
 export const hashPassword = async (password: string): Promise<string> => {
-    const salt: number = Number(process.env.BCRYPT_SALT)
+    const salt: number = Number(process.env.BCRYPT_SALT);
     const hashedPassword: string = await bcrypt.hash(password, salt);
 
     return hashedPassword;
-}
+};
 
 // Compares the password with the hashed password
-export const comparePassword = async (password: string, hashed: string): Promise<boolean> => {
+export const comparePassword = async (
+    password: string,
+    hashed: string
+): Promise<boolean> => {
     return await bcrypt.compare(password, hashed);
-}
+};
+
+// Generates a token for the user
+export const generateToken = async (
+    user: User | undefined
+): Promise<string> => {
+    const maxAge: number = 3600000; // 1 hour
+    const secret: string = process.env.JWT_SECRET || '';
+    const token = jwt.sign(
+        {
+            id: user?.id,
+            username: user?.username,
+            isRegistered: user?.isRegistered,
+            score: user?.score,
+            currentMonthScore: user?.currentMonthScore,
+            lastMonthScore: user?.lastMonthScore,
+        },
+        secret,
+        {
+            expiresIn: maxAge,
+        }
+    );
+
+    return token;
+};

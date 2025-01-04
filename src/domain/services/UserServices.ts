@@ -1,7 +1,6 @@
 import sql from 'better-sqlite3';
 import { hashPassword, comparePassword, getNanoid } from '../../lib/helpers';
 import { User } from '../types';
-//import { getNanoid } from "../../lib/helpers";
 
 const db = sql('quizz.db');
 
