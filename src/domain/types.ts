@@ -13,10 +13,10 @@ export type User = {
     id: string;
     username: string;
     password: string;
-    isRegistered: 0 | 1;
-    score: number;
-    currentMonthScore: number;
-    lastMonthScore: number;
+    isRegistered: boolean | number;
+    score?: number;
+    currentMonthScore?: number;
+    lastMonthScore?: number;
     //rank: number;
     //role: Role;
     //avatar: Avatar;
