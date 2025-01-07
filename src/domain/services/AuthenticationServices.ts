@@ -24,12 +24,12 @@ export class AuthenticationService {
             }
 
             db.prepare(
-                'INSERT INTO users (id, username, password, isRegistered) VALUES (?, ?, ?, ?, ?, ?, ?)'
+                'INSERT INTO users (id, username, password, isRegistered) VALUES (?, ?, ?, ?)'
             ).run(
                 newUser.id,
                 newUser.username,
                 newUser.password,
-                newUser.isRegistered,
+                newUser.isRegistered
             );
 
             return newUser;

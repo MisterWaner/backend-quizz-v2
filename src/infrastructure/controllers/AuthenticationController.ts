@@ -26,7 +26,10 @@ export class AuthenticationController {
                 return;
             }
 
-            const user: User = await authenticationService.registerUser(username, password);
+            const user: User = await authenticationService.registerUser(
+                username,
+                password
+            );
             res.status(201).json({
                 user,
                 message: 'Utilisateur créé avec succès',
@@ -40,17 +43,15 @@ export class AuthenticationController {
         }
     }
 
-    async login(req: Request, res: Response): Promise<void> {
+    async login(req: Request, res: Response): Promise<void | Response> {
         try {
             const { username, password } = req.body as User;
-
-            if (!username || !password) {
-                res.status(400).json({
+           
+            if (!username || !password)
+                return res.status(400).json({
                     message:
                         "Le mot de passe ou le nom d'utilisateur est manquant",
                 });
-                return;
-            }
 
             const user: User | undefined =
                 await authenticationService.authenticateUser(
@@ -58,12 +59,11 @@ export class AuthenticationController {
                     password
                 );
 
-            if (!user) {
-                res.status(401).json({
+            if (!user)
+                return res.status(401).json({
                     message: 'Utilisateur ou mot de passe incorrect',
                 });
-                return;
-            } else {
+            else {
                 const token: string = await generateToken(user);
                 res.cookie('token', token, {
                     httpOnly: true,
@@ -77,11 +77,11 @@ export class AuthenticationController {
                 });
             }
         } catch (error) {
-            res.status(500).json({
+            console.log(error);
+            return res.status(500).json({
                 error,
                 message: "Erreur lors de l'authentification",
             });
-            console.log(error);
         }
     }
 
