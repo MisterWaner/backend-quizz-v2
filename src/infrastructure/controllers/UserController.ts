@@ -122,4 +122,85 @@ export class UserController {
             });
         }
     }
+
+    async updateUserScore(req: Request, res: Response): Promise<void> {
+        try {
+            const { id } = req.params;
+            const { score } = req.body as User;
+
+            if (!id || !score) {
+                res.status(400).json({
+                    message: "L'id ou le score est manquant",
+                });
+                return;
+            }
+
+            const user: User | undefined = await userService.updateUserScore(
+                id,
+                score
+            );
+
+            if (!user) {
+                res.status(404).json({
+                    message: 'Utilisateur non trouvé',
+                });
+                return;
+            }
+
+            res.status(200).json({
+                user,
+                message: 'Score mis à jour avec succès',
+            });
+        } catch (error) {
+            res.status(500).json({
+                error,
+                message: 'Erreur lors de la mise à jour du score',
+            });
+            console.log(error);
+        }
+    }
+
+    async updateUserCurrentMonthScore(
+        req: Request,
+        res: Response
+    ): Promise<void> {
+        try {
+            const { id } = req.params;
+            const { score, currentMonthScore } = req.body as User;
+
+            if (!id || !score || !currentMonthScore) {
+                res.status(400).json({
+                    message:
+                        "L'id ou le score ou le score du mois courant est manquant",
+                });
+                return;
+            }
+
+            const user: User | undefined =
+                await userService.updateUserCurrentMonthScore(
+                    id,
+                    score,
+                    currentMonthScore
+                );
+
+            if (!user) {
+                res.status(404).json({
+                    message: 'Utilisateur non trouvé',
+                });
+                return;
+            }
+
+            res.status(200).json({
+                user,
+                message: 'Score du mois courant mis à jour avec succès',
+            });
+        } catch (error) {
+            res.status(500).json({
+                error,
+                message:
+                    'Erreur lors de la mise à jour du score du mois courant',
+            });
+            console.log(error);
+        }
+    }
 }

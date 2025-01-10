@@ -82,4 +82,54 @@ export class UserService {
             throw new Error("Erreur lors de la suppression de l'utilisateur");
         }
     }
+
+    async updateUserScore(
+        id: string,
+        score: number
+    ): Promise<User | undefined> {
+        try {
+            const user = this.getUserById(id);
+
+            if (!user) throw new Error('Utilisateur inexistant');
+
+            if (score < 0) throw new Error('Score incorrect');
+
+            db.prepare('UPDATE users SET score = score + ? WHERE id = ?').run(
+                score,
+                id
+            );
+
+            return user;
+        } catch (error) {
+            console.log(error);
+            throw new Error('Erreur lors de la mise à jour du score');
+        }
+    }
+
+    async updateUserCurrentMonthScore(
+        id: string,
+        score: number,
+        currentMonthScore: number
+    ): Promise<User | undefined> {
+        try {
+            const user = this.getUserById(id);
+
+            if (!user) throw new Error('Utilisateur inexistant');
+
+            const updatedMonthScore = currentMonthScore + score;
+
+            if (updatedMonthScore < 0) throw new Error('Score incorrect');
+
+            db.prepare(
+                'UPDATE users SET currentMonthScore = ?, score = 0 WHERE id = ?'
+            ).run(updatedMonthScore, id);
+
+            return user;
+        } catch (error) {
+            console.log(error);
+            throw new Error(
+                'Erreur lors de la mise à jour du score du mois courant'
+            );
+        }
+    }
 }

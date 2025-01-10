@@ -43,12 +43,12 @@ export class AuthenticationController {
         }
     }
 
-    async login(req: Request, res: Response): Promise<void | Response> {
+    async login(req: Request, res: Response): Promise<void> {
         try {
             const { username, password } = req.body as User;
            
             if (!username || !password)
-                return res.status(400).json({
+                res.status(400).json({
                     message:
                         "Le mot de passe ou le nom d'utilisateur est manquant",
                 });
@@ -60,7 +60,7 @@ export class AuthenticationController {
                 );
 
             if (!user)
-                return res.status(401).json({
+                res.status(401).json({
                     message: 'Utilisateur ou mot de passe incorrect',
                 });
             else {
@@ -78,7 +78,7 @@ export class AuthenticationController {
             }
         } catch (error) {
             console.log(error);
-            return res.status(500).json({
+            res.status(500).json({
                 error,
                 message: "Erreur lors de l'authentification",
             });
