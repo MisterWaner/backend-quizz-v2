@@ -1,6 +1,8 @@
 import express, { Request, Response } from 'express';
 import { config } from 'dotenv';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import './lib/score-tasks';
 
 import router from './infrastructure/routes/index';
 
@@ -8,6 +10,7 @@ config();
 
 const app = express();
 
+// Middleware
 app.use(
     cors({
         origin: '*',
@@ -18,7 +21,9 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
+// Routes
 app.get('/', (req: Request, res: Response) => {
     res.send('API démarrée et fonctionnelle');
 });

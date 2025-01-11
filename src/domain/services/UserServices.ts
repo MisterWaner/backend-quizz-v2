@@ -5,11 +5,17 @@ import { User } from '../types';
 const db = sql('quizz.db');
 
 export class UserService {
+    fetchUsers(): User[] {
+        return db.prepare('SELECT * FROM users').all() as User[];
+    }
+
+    fetchUserById(id: string): User {
+        return db.prepare('SELECT * FROM users WHERE id = ?').get(id) as User;
+    }
+    
     async getUsers(): Promise<User[] | undefined> {
         try {
-            const users: User[] = db
-                .prepare('SELECT * FROM users')
-                .all() as User[];
+            const users: User[] = this.fetchUsers();
 
             if (users.length === 0) throw new Error('Aucun utilisateur trouvé');
 
@@ -22,9 +28,7 @@ export class UserService {
 
     async getUserById(id: string): Promise<User | undefined> {
         try {
-            const user: User = db
-                .prepare('SELECT * FROM users WHERE id = ?')
-                .get(id) as User;
+            const user: User = this.fetchUserById(id);
 
             if (!user) throw new Error('Utilisateur inexistant');
 
