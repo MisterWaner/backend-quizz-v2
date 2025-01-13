@@ -6,26 +6,26 @@ const db = sql('quizz.db');
 export class ScoreService {
     fetchUsersDailyScore(): User[] {
         return db
-            .prepare('SELECT * FROM users ORDER BY score DESC')
+            .prepare('SELECT username, score FROM users ORDER BY score DESC')
             .all() as User[];
     }
 
     fetchUsersMonthlyScore(): User[] {
         return db
-            .prepare('SELECT * FROM users ORDER BY currentMonthScore DESC')
+            .prepare('SELECT username, currentMonthScore FROM users ORDER BY currentMonthScore DESC')
             .all() as User[];
     }
 
     fetchTop5DailyScore(): User[] {
         return db
-            .prepare('SELECT * FROM users ORDER BY score DESC LIMIT 5')
+            .prepare('SELECT username, score FROM users ORDER BY score DESC LIMIT 5')
             .all() as User[];
     }
 
     fetchTop5MonthlyScore(): User[] {
         return db
             .prepare(
-                'SELECT * FROM users ORDER BY currentMonthScore DESC LIMIT 5'
+                'SELECT username, currentMonthScore FROM users ORDER BY currentMonthScore DESC LIMIT 5'
             )
             .all() as User[];
     }

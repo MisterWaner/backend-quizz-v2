@@ -5,7 +5,7 @@ import { User } from '../types';
 const db = sql('quizz.db');
 
 export class AuthenticationService {
-    async registerUser(username: string, password: string): Promise<User> {
+    async registerUser(username: string, password: string): Promise<User | null> {
         try {
             const hashedPassword: string = await hashPassword(password);
             const newUser: User = {
@@ -13,6 +13,9 @@ export class AuthenticationService {
                 username,
                 password: hashedPassword,
                 isRegistered: 1,
+                score: 0,
+                currentMonthScore: 0,
+                lastMonthScore: 0,
             };
 
             const userExists = db
@@ -42,7 +45,7 @@ export class AuthenticationService {
     async authenticateUser(
         username: string,
         password: string
-    ): Promise<User | undefined> {
+    ): Promise<User | null> {
         try {
             const user: User = db
                 .prepare('SELECT * FROM users WHERE username = ?')

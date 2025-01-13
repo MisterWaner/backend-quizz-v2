@@ -14,9 +14,9 @@ export type User = {
     username: string;
     password: string;
     isRegistered: boolean | number;
-    score?: number;
-    currentMonthScore?: number;
-    lastMonthScore?: number;
+    score: number;
+    currentMonthScore: number;
+    lastMonthScore: number;
     //rank: number;
     //role: Role;
     //avatar: Avatar;

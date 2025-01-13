@@ -9,6 +9,6 @@ const router: Router = Router();
 router.use('/math', mathRouter);
 router.use('/users', userRouter);
 router.use('/auth', authRouter);
-router.use('/score', scoreRouter);
+router.use('/scores', scoreRouter);
 
 export default router;

@@ -7,7 +7,7 @@ const userService = new UserService();
 export class UserController {
     async getUsers(req: Request, res: Response): Promise<void> {
         try {
-            const users: User[] | undefined = await userService.getUsers();
+            const users: User[] | null = await userService.getUsers();
 
             if (!users) {
                 res.status(404).json({
@@ -40,7 +40,7 @@ export class UserController {
                 return;
             }
 
-            const user: User | undefined = await userService.getUserById(id);
+            const user: User | null = await userService.getUserById(id);
 
             if (!user) {
                 res.status(404).json({
@@ -74,7 +74,7 @@ export class UserController {
                 return;
             }
 
-            const user: User | undefined = await userService.updateUserUsername(
+            const user: User | null = await userService.updateUserUsername(
                 id,
                 username
             );
@@ -135,7 +135,7 @@ export class UserController {
                 return;
             }
 
-            const user: User | undefined = await userService.updateUserScore(
+            const user: User | null = await userService.updateUserScore(
                 id,
                 score
             );
@@ -176,7 +176,7 @@ export class UserController {
                 return;
             }
 
-            const user: User | undefined =
+            const user: User | null =
                 await userService.updateUserCurrentMonthScore(
                     id,
                     score,

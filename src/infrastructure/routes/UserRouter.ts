@@ -1,33 +1,18 @@
-import { NextFunction, Router, Request, Response } from 'express';
+import { Router } from 'express';
 import { UserController } from '../controllers/UserController';
 import { verifyToken } from '../../lib/middlewares';
 
 const userRouter: Router = Router();
 const userController = new UserController();
 
-const verifyTokenWrapper = (
-    req: Request,
-    res: Response,
-    next: NextFunction
-) => {
-    verifyToken(req, res, next)
-        .then(() => next())
-        .catch(next);
-};
-
 userRouter.get('/', userController.getUsers);
-userRouter.get('/:id', verifyTokenWrapper, userController.getUserById);
-userRouter.put('/:id', verifyTokenWrapper, userController.updateUserUsername);
-userRouter.put(
-    '/:id/score',
-    verifyTokenWrapper,
-    userController.updateUserScore
-);
+userRouter.get('/:id', verifyToken, userController.getUserById);
+userRouter.put('/:id', verifyToken, userController.updateUserUsername);
+userRouter.put('/:id/score', userController.updateUserScore);
 userRouter.put(
     '/:id/current-month-score',
-    verifyTokenWrapper,
     userController.updateUserCurrentMonthScore
 );
-userRouter.delete('/:id', verifyTokenWrapper, userController.deleteUser);
+userRouter.delete('/:id', verifyToken, userController.deleteUser);
 
 export { userRouter };

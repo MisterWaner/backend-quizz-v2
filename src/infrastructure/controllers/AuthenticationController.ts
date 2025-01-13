@@ -26,7 +26,7 @@ export class AuthenticationController {
                 return;
             }
 
-            const user: User = await authenticationService.registerUser(
+            const user: User | null = await authenticationService.registerUser(
                 username,
                 password
             );
@@ -53,7 +53,7 @@ export class AuthenticationController {
                         "Le mot de passe ou le nom d'utilisateur est manquant",
                 });
 
-            const user: User | undefined =
+            const user: User | null =
                 await authenticationService.authenticateUser(
                     username,
                     password
@@ -71,6 +71,7 @@ export class AuthenticationController {
                     sameSite: 'none',
                     maxAge: 3600000,
                 });
+                res.header('')
                 res.status(200).json({
                     token,
                     message: 'Authentification réussie',

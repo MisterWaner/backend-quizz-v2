@@ -12,11 +12,7 @@ export const verifyToken = async (
     const token = req.cookies?.token || req.headers['authorization'];
 
     if (!token) {
-        return res
-            .status(403)
-            .json({
-                message: "Vous n'êtes pas autorisé à effectuer cette action",
-            });
+        return next(new Error("Vous n'êtes pas autorisé à effectuer cette action"));
     }
 
     try {
@@ -25,10 +21,6 @@ export const verifyToken = async (
         (req as any).user = decoded;
         next();
     } catch (error) {
-        return res
-            .status(401)
-            .json({
-                message: "Vous n'êtes pas autorisé à effectuer cette action",
-            });
+        next(error);
     }
 };

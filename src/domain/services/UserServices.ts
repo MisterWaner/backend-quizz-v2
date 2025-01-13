@@ -13,7 +13,7 @@ export class UserService {
         return db.prepare('SELECT * FROM users WHERE id = ?').get(id) as User;
     }
     
-    async getUsers(): Promise<User[] | undefined> {
+    async getUsers(): Promise<User[] | null> {
         try {
             const users: User[] = this.fetchUsers();
 
@@ -26,7 +26,7 @@ export class UserService {
         }
     }
 
-    async getUserById(id: string): Promise<User | undefined> {
+    async getUserById(id: string): Promise<User | null> {
         try {
             const user: User = this.fetchUserById(id);
 
@@ -42,7 +42,7 @@ export class UserService {
     async updateUserUsername(
         id: string,
         username: string
-    ): Promise<User | undefined> {
+    ): Promise<User | null> {
         try {
             const user = this.getUserById(id);
 
@@ -90,7 +90,7 @@ export class UserService {
     async updateUserScore(
         id: string,
         score: number
-    ): Promise<User | undefined> {
+    ): Promise<User | null> {
         try {
             const user = this.getUserById(id);
 
@@ -114,7 +114,7 @@ export class UserService {
         id: string,
         score: number,
         currentMonthScore: number
-    ): Promise<User | undefined> {
+    ): Promise<User | null> {
         try {
             const user = this.getUserById(id);
 
