@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import { config } from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
+import bodyParser from 'body-parser';
 import './lib/score-tasks';
 
 import router from './infrastructure/routes/index';
@@ -22,6 +23,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(bodyParser.json());
 
 // Routes
 app.get('/', (req: Request, res: Response) => {
