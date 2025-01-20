@@ -46,7 +46,7 @@ export class AuthenticationController {
     async login(req: Request, res: Response): Promise<void> {
         try {
             const { username, password } = req.body as User;
-           
+        
             if (!username || !password)
                 res.status(400).json({
                     message:

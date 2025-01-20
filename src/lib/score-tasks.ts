@@ -1,13 +1,12 @@
 import cron from 'node-cron';
-import { UserService } from '../domain/services/UserServices';
+import { fetchUsers } from '../infrastructure/controllers/UserController';
 import sql from 'better-sqlite3';
 
 const db = sql('quizz.db');
-const userService = new UserService();
 
 // Update the current month score of all users every day at midnight
 cron.schedule('0 0 * * *', () => {
-    const users = userService.fetchUsers();
+    const users = fetchUsers();
 
     users.forEach((user) => {
         db.prepare(
@@ -18,7 +17,7 @@ cron.schedule('0 0 * * *', () => {
 
 // update month scores every month at the beginning of the month
 cron.schedule('0 0 1 * *', () => {
-    const users = userService.fetchUsers();
+    const users = fetchUsers();
 
     users.forEach((user) => {
         if (user.lastMonthScore === 0) {
