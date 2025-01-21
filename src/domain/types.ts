@@ -43,5 +43,5 @@ export type QCMQuestion = {
     id: number;
     label: string;
     options: string[];
-    correctAnswer: number;
+    correctAnswer: string;
 };
