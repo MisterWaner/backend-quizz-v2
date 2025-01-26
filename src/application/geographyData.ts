@@ -261,3 +261,328 @@ export const africanCountries: Country[] = [
         capital: 'Khartoum',
     },
 ];
+
+export const asianCountries: Country[] = [
+    {
+        name: 'Chine',
+        capital: 'Pekin',
+    },
+    {
+        name: 'Corée du Nord',
+        capital: 'Pyongyang',
+    },
+    {
+        name: 'Corée du Sud',
+        capital: 'Seoul',
+    },
+    {
+        name: 'Japon',
+        capital: 'Tokyo',
+    },
+    {
+        name: 'Inde',
+        capital: 'New Delhi',
+    },
+    {
+        name: 'Géorgie',
+        capital: 'Tbilissi',
+    },
+    {
+        name: 'Mongolie',
+        capital: 'Oulan-Bator',
+    },
+    {
+        name: 'Iran',
+        capital: 'Teheran',
+    },
+    {
+        name: 'Laos',
+        capital: 'Vientiane',
+    },
+    {
+        name: 'Népal',
+        capital: 'Katmandou',
+    },
+    {
+        name: 'Viet Nam',
+        capital: 'Hanoi',
+    },
+    {
+        name: 'Arabie Saoudite',
+        capital: 'Riyad',
+    },
+    {
+        name: 'Israël',
+        capital: 'Tel Aviv',
+    },
+    {
+        name: 'Irak',
+        capital: 'Bagdad',
+    },
+    {
+        name: 'Afghanistan',
+        capital: 'Kaboul',
+    },
+    {
+        name: 'Cambodge',
+        capital: 'Phnom Penh',
+    },
+    {
+        name: 'Thailande',
+        capital: 'Bangkok',
+    },
+    {
+        name: 'Taïwan',
+        capital: 'Taipei',
+    },
+    {
+        name: 'Ouzbékistan',
+        capital: 'Tashkent',
+    },
+    {
+        name: 'Pakistan',
+        capital: 'Islamabad',
+    },
+    {
+        name: 'Philippines',
+        capital: 'Manille',
+    },
+    {
+        name: 'Koweït',
+        capital: 'Kuwait',
+    },
+    {
+        name: 'Malaisie',
+        capital: 'Kuala Lumpur',
+    },
+    {
+        name: 'Indonésie',
+        capital: 'Nusantara',
+    },
+    {
+        name: 'Yémen',
+        capital: 'Sanaa',
+    },
+    {
+        name: 'Liban',
+        capital: 'Beyrouth',
+    },
+    {
+        name: 'Syrie',
+        capital: 'Damas',
+    },
+    {
+        name: 'Bahrein',
+        capital: 'Manama',
+    },
+    {
+        name: 'Oman',
+        capital: 'Masqat',
+    },
+    {
+        name: 'Kazakhstan',
+        capital: 'Astana',
+    },
+    {
+        name: 'Turquie',
+        capital: 'Ankara',
+    },
+    {
+        name: 'Arménie',
+        capital: 'Erevan',
+    },
+    {
+        name: 'Tadjikistan',
+        capital: 'Douchanbé',
+    },
+    {
+        name: 'Sri Lanka',
+        capital: 'Sri Jayawardenepura Kotte',
+    },
+    {
+        name: 'Maldives',
+        capital: 'Malé',
+    },
+    {
+        name: 'Jordanie',
+        capital: 'Amman',
+    },
+    {
+        name: 'Turkménistan',
+        capital: 'Ashgabat',
+    },
+    {
+        name: 'Palestine',
+        capital: 'Ramallah',
+    }
+];
+
+export const americanCountries: Country[] = [
+    {
+        name: 'Canada',
+        capital: 'Ottawa',
+    },
+    {
+        name: 'Mexique',
+        capital: 'Mexico',
+    },
+    {
+        name: 'États-Unis',
+        capital: 'Washington D.C.',
+    },
+    {
+        name: 'Cuba',
+        capital: 'La Havane',
+    },
+    {
+        name: 'Pérou',
+        capital: 'Lima',
+    },
+    {
+        name: 'Argentine',
+        capital: 'Buenos Aires',
+    },
+    {
+        name: 'Brésil',
+        capital: 'Brasilia',
+    },
+    {
+        name: 'Colombie',
+        capital: 'Bogota',
+    },
+    {
+        name: 'Chili',
+        capital: 'Santiago',
+    },
+    {
+        name: 'Uruguay',
+        capital: 'Montevideo',
+    },
+    {
+        name: 'Venezuela',
+        capital: 'Caracas',
+    },
+    {
+        name: 'Guyana',
+        capital: 'Georgetown',
+    },
+    {
+        name: 'Guatemala',
+        capital: 'Guatemala',
+    },
+    {
+        name: 'Honduras',
+        capital: 'Tegucigalpa',
+    },
+    {
+        name: 'Nicaragua',
+        capital: 'Managua',
+    },
+    {
+        name: 'Panama',
+        capital: 'Panama',
+    },
+    {
+        name: 'Costa Rica',
+        capital: 'San José',
+    },
+    {
+        name: 'Haiti',
+        capital: 'Port-au-Prince',
+    },
+    {
+        name: 'Dominique',
+        capital: 'Santo Domingo',
+    },
+    {
+        name: 'Salvador',
+        capital: 'San Salvador',
+    },
+    {
+        name: 'Bolivie',
+        capital: 'La Paz',
+    },
+    {
+        name: 'Équateur',
+        capital: 'Quito'
+    },
+    {
+        name: 'Bahamas',
+        capital: 'Nassau'
+    },
+    {
+        name: 'Trinité-et-Tobago',
+        capital: 'Port-d\'Espagne'
+    },
+    {
+        name: 'Paraguay',
+        capital: 'Asunción'
+    }
+];
+
+export const oceanicCountries: Country[] = [
+    {
+        name: 'Australie',
+        capital: 'Canberra'
+    },
+    {
+        name: 'Nouvelle-Zélande',
+        capital: 'Wellington'
+    },
+    {
+        name: 'Iles Cook',
+        capital: 'Avarua'
+    },
+    {
+        name: 'Fidji',
+        capital: 'Suva'
+    },
+    {
+        name: 'Tonga',
+        capital: 'Nuku\'alofa'
+    },
+    {
+        name: 'Kiribati',
+        capital: 'Tarawa'
+    },
+    {
+        name: 'Nauru',
+        capital: 'Yaren'
+    },
+    {
+        name: 'Iles Marshall',
+        capital: 'Majuro'
+    },
+    {
+        name: 'Tuvalu',
+        capital: 'Funafuti'
+    },
+    {
+        name: 'Micronésie',
+        capital: 'Palikir'
+    },
+    {
+        name: 'Niue',
+        capital: 'Alofi'
+    },
+    {
+        name: 'Palaos',
+        capital: 'Melekeok'
+    },
+    {
+        name: 'Papouasie-Nouvelle-Guinée',
+        capital: 'Port Moresby'
+    },
+    {
+        name: 'Iles Salomon',
+        capital: 'Honiara'
+    },
+    {
+        name: 'Samoa',
+        capital: 'Apia'
+    },
+    {
+        name: 'Vanuatu',
+        capital: 'Port-Vila'
+    }
+]
