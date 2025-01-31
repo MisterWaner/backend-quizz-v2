@@ -1,20 +1,20 @@
 import { Request, Response } from 'express';
 import sql from 'better-sqlite3';
-import { User } from '../../domain/types';
+import { IUser } from '../../domain/types';
 
 const db = sql('quizz.db');
 
-export function fetchUsers(): User[] {
-    return db.prepare('SELECT * FROM users').all() as User[];
+export function fetchUsers(): IUser[] {
+    return db.prepare('SELECT * FROM users').all() as IUser[];
 }
 
-export function fetchUserById(id: string): User {
-    return db.prepare('SELECT * FROM users WHERE id = ?').get(id) as User;
+export function fetchUserById(id: string): IUser {
+    return db.prepare('SELECT * FROM users WHERE id = ?').get(id) as IUser;
 }
 
 async function getUsers(req: Request, res: Response): Promise<void> {
     try {
-        const users: User[] = fetchUsers();
+        const users: IUser[] = fetchUsers();
 
         if (users.length === 0) {
             res.status(404).json({
@@ -46,7 +46,7 @@ async function getUserById(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        const user: User = fetchUserById(id);
+        const user: IUser = fetchUserById(id);
 
         if (!user) {
             res.status(404).json({
@@ -70,7 +70,7 @@ async function getUserById(req: Request, res: Response): Promise<void> {
 async function updateUserUsername(req: Request, res: Response): Promise<void> {
     try {
         const { id } = req.params;
-        const { username } = req.body as User;
+        const { username } = req.body as IUser;
 
         if (!username) {
             res.status(400).json({
@@ -79,7 +79,7 @@ async function updateUserUsername(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        const user: User | null = fetchUserById(id);
+        const user: IUser | null = fetchUserById(id);
 
         if (!user) {
             res.status(404).json({ message: 'Utilisateur non trouvé' });
@@ -124,7 +124,7 @@ async function deleteUser(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        const user: User | null = fetchUserById(id);
+        const user: IUser | null = fetchUserById(id);
 
         if (!user) {
             res.status(404).json({
@@ -155,7 +155,7 @@ async function deleteUser(req: Request, res: Response): Promise<void> {
 async function updateUserScore(req: Request, res: Response): Promise<void> {
     try {
         const { id } = req.params;
-        const { score } = req.body as User;
+        const { score } = req.body as IUser;
 
         if (!id || !score) {
             res.status(400).json({
@@ -164,7 +164,7 @@ async function updateUserScore(req: Request, res: Response): Promise<void> {
             return;
         }
 
-        const user: User | null = fetchUserById(id);
+        const user: IUser | null = fetchUserById(id);
 
         if (!user) {
             res.status(404).json({
@@ -196,7 +196,7 @@ async function updateUserCurrentMonthScore(
     res: Response
 ): Promise<void> {
     try {
-        const { id } = req.body as User;
+        const { id } = req.body as IUser;
 
         if (!id) {
             res.status(400).json({
@@ -205,7 +205,7 @@ async function updateUserCurrentMonthScore(
             return;
         }
 
-        const user: User | null = fetchUserById(id);
+        const user: IUser | null = fetchUserById(id);
 
         if (!user) {
             res.status(404).json({

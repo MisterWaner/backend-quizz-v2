@@ -1,47 +1,56 @@
-export type Role = {
+export interface IRole {
     id: number;
     name: string;
-};
+}
 
-export type Avatar = {
-    id: number;
-    title: string;
-    url: string;
-};
-
-export type User = {
+export interface IUser {
     id: string;
     username: string;
     password: string;
     isRegistered: boolean | number;
-    score: number;
-    currentMonthScore: number;
-    lastMonthScore: number;
-    //rank: number;
-    //role: Role;
-    //avatar: Avatar;
-};
+    // role: IRole['id'];
+    // avatar: IAvatar['id'];
+}
 
-export type Subject = {
+export interface IAvatar {
+    id: number;
+    title: string;
+    url: string;
+}
+
+export interface ISubject {
     id: number;
     label: string;
-};
+}
 
-export type Quiz = {
+export interface IQuiz {
     length: number;
-    subject?: Subject;
-    questions: Question[];
-};
+    subject?: ISubject['id'];
+    questions: IQuestion[];
+}
 
-export type Question = {
+export interface IQuestion {
     id: number;
     label: string;
     correctAnswer: string | number;
-};
+}
 
-export type QCMQuestion = {
-    id: number;
-    label: string;
+export interface IQCMQuestion extends IQuestion {
     options: string[];
-    correctAnswer: string;
-};
+}
+
+export interface ICurrentYearScore {
+    id: number;
+    score: number;
+    month: string;
+    subject: ISubject['id'];
+    user: IUser['id'];
+}
+
+export interface ILastYearScore {
+    id: number;
+    score: number;
+    month: string;
+    subject: ISubject['id'];
+    user: IUser['id'];
+}
