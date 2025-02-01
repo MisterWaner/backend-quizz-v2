@@ -8,6 +8,9 @@ export interface IUser {
     username: string;
     password: string;
     isRegistered: boolean | number;
+    currentScore: number;
+    currentMonthScore: number;
+    lastMonthScore: number;
     // role: IRole['id'];
     // avatar: IAvatar['id'];
 }

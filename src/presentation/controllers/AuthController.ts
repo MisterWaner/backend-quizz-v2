@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
-import { AuthenticationService } from '../../domain/services/AuthenticationServices';
-import { User } from '../../domain/types';
+import { AuthService } from '../../application/auth/AuthService';
+import { User } from '../../domain/user/User';
 import { generateToken } from '../../lib/helpers';
 
-const authenticationService = new AuthenticationService();
+export class AuthController {
+    constructor(private authService: AuthService) {}
 
-export class AuthenticationController {
-    async register(req: Request, res: Response): Promise<void> {
+    createUser = async (req: Request, res: Response): Promise<void> => {
         try {
             const { username, password } = req.body as User;
             const confirmation: string = req.body.confirmation;
@@ -18,7 +18,6 @@ export class AuthenticationController {
                 });
                 return;
             }
-
             if (confirmation !== password) {
                 res.status(400).json({
                     message: 'Les mots de passe ne correspondent pas',
@@ -26,7 +25,7 @@ export class AuthenticationController {
                 return;
             }
 
-            const user: User | null = await authenticationService.registerUser(
+            const user: User = await this.authService.registerUser(
                 username,
                 password
             );
@@ -35,35 +34,35 @@ export class AuthenticationController {
                 message: 'Utilisateur créé avec succès',
             });
         } catch (error) {
+            console.log(error);
             res.status(500).json({
                 error,
                 message: "Erreur lors de la création de l'utilisateur",
             });
-            console.log(error);
         }
-    }
+    };
 
-    async login(req: Request, res: Response): Promise<void> {
+    loginUser = async (req: Request, res: Response): Promise<void> => {
         try {
             const { username, password } = req.body as User;
-        
-            if (!username || !password)
+
+            if (!username || !password) {
                 res.status(400).json({
                     message:
                         "Le mot de passe ou le nom d'utilisateur est manquant",
                 });
+                return;
+            }
 
             const user: User | null =
-                await authenticationService.authenticateUser(
-                    username,
-                    password
-                );
+                await this.authService.loginUser(username, password);
 
-            if (!user)
+            if (!user) {
                 res.status(401).json({
                     message: 'Utilisateur ou mot de passe incorrect',
                 });
-            else {
+                return;
+            } else {
                 const token: string = await generateToken(user);
                 res.cookie('token', token, {
                     httpOnly: true,
@@ -71,7 +70,7 @@ export class AuthenticationController {
                     sameSite: 'none',
                     maxAge: 3600000,
                 });
-                res.header('')
+                res.header('');
                 res.status(200).json({
                     token,
                     message: 'Authentification réussie',
@@ -84,9 +83,9 @@ export class AuthenticationController {
                 message: "Erreur lors de l'authentification",
             });
         }
-    }
+    };
 
-    async logout(req: Request, res: Response): Promise<void> {
+    logoutUser = async (req: Request, res: Response): Promise<void> => {
         try {
             res.clearCookie('token', {
                 httpOnly: true,
@@ -96,11 +95,11 @@ export class AuthenticationController {
                 message: 'Déconnexion réussie',
             });
         } catch (error) {
+            console.log(error);
             res.status(500).json({
                 error,
                 message: 'Erreur lors de la déconnexion',
             });
-            console.log(error);
         }
     }
 }

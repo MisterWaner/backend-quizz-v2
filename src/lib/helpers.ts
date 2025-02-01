@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import { config } from 'dotenv';
-import { User } from '../domain/types';
+import { IUser } from '../domain/types';
 
 config();
 
@@ -34,7 +34,7 @@ export const comparePassword = async (
 
 // Generates a token for the user
 export const generateToken = async (
-    user: User | undefined
+    user: IUser | undefined
 ): Promise<string> => {
     const maxAge: number = 3600000; // 1 hour
     const secret: string = process.env.JWT_SECRET || '';
@@ -43,7 +43,7 @@ export const generateToken = async (
             id: user?.id,
             username: user?.username,
             isRegistered: user?.isRegistered,
-            score: user?.score,
+            score: user?.currentScore,
             currentMonthScore: user?.currentMonthScore,
             lastMonthScore: user?.lastMonthScore,
         },

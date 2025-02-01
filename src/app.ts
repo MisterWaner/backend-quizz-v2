@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import './lib/score-tasks';
 
-import router from './infrastructure/routes/index';
+import router from './presentation/routes/index';
 
 config();
 
